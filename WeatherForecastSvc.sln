@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastSvc.Endpoint", "WeatherForecastSvc.Endpoint\WeatherForecastSvc.Endpoint.csproj", "{C20873FE-9F99-404E-9932-D7E136091816}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastSvc.Persistence", "WeatherForecastSvc.Persistence\WeatherForecastSvc.Persistence.csproj", "{E3AB5477-9B66-4D3B-9679-21F7B5CD2B85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastDataCollector", "WeatherForecastDataCollector\WeatherForecastDataCollector.csproj", "{D11F6265-A2F5-4094-8E13-EEECF029D86A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherFront", "weather-frontend\WeatherFront.csproj", "{E83360BC-4165-459D-9322-6F5590317D69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C20873FE-9F99-404E-9932-D7E136091816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C20873FE-9F99-404E-9932-D7E136091816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C20873FE-9F99-404E-9932-D7E136091816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C20873FE-9F99-404E-9932-D7E136091816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3AB5477-9B66-4D3B-9679-21F7B5CD2B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3AB5477-9B66-4D3B-9679-21F7B5CD2B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3AB5477-9B66-4D3B-9679-21F7B5CD2B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3AB5477-9B66-4D3B-9679-21F7B5CD2B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D11F6265-A2F5-4094-8E13-EEECF029D86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D11F6265-A2F5-4094-8E13-EEECF029D86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D11F6265-A2F5-4094-8E13-EEECF029D86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D11F6265-A2F5-4094-8E13-EEECF029D86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E83360BC-4165-459D-9322-6F5590317D69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E83360BC-4165-459D-9322-6F5590317D69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E83360BC-4165-459D-9322-6F5590317D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E83360BC-4165-459D-9322-6F5590317D69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
