@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @using System.Text.Encodings.Web
 @inject HttpClient Http
+@using WeatherForecastSvc.Endpoint.Dto
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -66,7 +67,7 @@ else
 }
 
 @code {
-    private WeatherForecast? forecast;
+    private DateForecastDto? forecast;
     private ForecastRequest request;
     private CityDto[]? cities;
 
@@ -79,18 +80,7 @@ else
 
     private async Task FetchForecast()
     {
-        forecast = await Http.GetFromJsonAsync<WeatherForecast>("/forecast?cityName=" + request.CityName + "&date=" + request.Date);
-    }
-
-
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-        public string Summary { get; set; }
-        public int MinTempC { get; set; }
-        public int MaxTempC { get; set; }
-        public int WindMs { get; set; }
-        public double PrecipitationMm { get; set; }
+        forecast = await Http.GetFromJsonAsync<DateForecastDto>("/forecast?cityName=" + request.CityName + "&date=" + request.Date);
     }
 
     public class ForecastRequest

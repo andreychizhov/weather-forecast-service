@@ -59,10 +59,10 @@ namespace WeatherForecastSvc.Endpoint.Controllers
         }
         
         [HttpGet]
+        [Route("full")]
         [ProducesResponseType(typeof(ForecastDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Get(
-            CancellationToken token)
+        public async Task<IActionResult> Get(CancellationToken token)
         {
             var forecast = await _forecastService.GetLatestForecasts(token);
             if (forecast == null)

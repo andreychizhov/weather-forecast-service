@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastDataCollecto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherUI", "WeatherUI\WeatherUI.csproj", "{B79F9DC2-0817-4CF9-82AA-D91917730AFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastSvc.Endpoint.Dto", "WeatherForecastSvc.Endpoint.Dto\WeatherForecastSvc.Endpoint.Dto.csproj", "{B2ECD1EE-226E-4C4F-BF5D-74C114378C36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{B79F9DC2-0817-4CF9-82AA-D91917730AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B79F9DC2-0817-4CF9-82AA-D91917730AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B79F9DC2-0817-4CF9-82AA-D91917730AFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2ECD1EE-226E-4C4F-BF5D-74C114378C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2ECD1EE-226E-4C4F-BF5D-74C114378C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2ECD1EE-226E-4C4F-BF5D-74C114378C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2ECD1EE-226E-4C4F-BF5D-74C114378C36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

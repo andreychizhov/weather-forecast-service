@@ -1,6 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WeatherForecastSvc.Endpoint.Dto;
 
 namespace WeatherForecastSvc.Endpoint.Controllers
 {
@@ -16,9 +17,4 @@ namespace WeatherForecastSvc.Endpoint.Controllers
             return Ok(new[] {"Барнаул", "Новосибирск", "Екатеринбург"}.Select(x => new CityDto{ Name = x }));
         }
     }
-
-    class CityDto
-    {
-        public string Name { get; set; }
-    }    
 }

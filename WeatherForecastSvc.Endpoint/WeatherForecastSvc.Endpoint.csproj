@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WeatherForecastSvc.Endpoint.Dto\WeatherForecastSvc.Endpoint.Dto.csproj" />
     <ProjectReference Include="..\WeatherForecastSvc.Persistence\WeatherForecastSvc.Persistence.csproj" />
   </ItemGroup>
 
