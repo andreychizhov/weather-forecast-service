@@ -1,5 +1,4 @@
 ﻿@page "/fetchdata"
-@using System.Text.Encodings.Web
 @inject HttpClient Http
 @using WeatherForecastSvc.Endpoint.Dto
 
@@ -87,10 +86,5 @@ else
     {
         public DateTime Date { get; set; } = DateTime.Now.Date;
         public string CityName { get; set; }
-    }
-
-    class CityDto
-    {
-        public string Name { get; set; }
     }
 }

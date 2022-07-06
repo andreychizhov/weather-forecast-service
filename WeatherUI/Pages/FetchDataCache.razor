@@ -1,6 +1,6 @@
 ﻿@page "/fetchdata-cache"
-@using System.Text.Encodings.Web
 @inject HttpClient Http
+@using WeatherForecastSvc.Endpoint.Dto
 
 <PageTitle>Weather forecast with server caching</PageTitle>
 
@@ -66,7 +66,7 @@ else
 }
 
 @code {
-    private WeatherForecast? forecast;
+    private DateForecastDto? forecast;
     private ForecastRequest request;
     private CityDto[]? cities;
 
@@ -79,27 +79,12 @@ else
 
     private async Task FetchForecast()
     {
-        forecast = await Http.GetFromJsonAsync<WeatherForecast>("/forecast/cached?cityName=" + request.CityName + "&date=" + request.Date);
+        forecast = await Http.GetFromJsonAsync<DateForecastDto>("/forecast/cached?cityName=" + request.CityName + "&date=" + request.Date);
     }
     
-    public class WeatherForecast
-    {
-        public DateTime Date { get; set; }
-        public string Summary { get; set; }
-        public int MinTempC { get; set; }
-        public int MaxTempC { get; set; }
-        public int WindMs { get; set; }
-        public double PrecipitationMm { get; set; }
-    }
-
     public class ForecastRequest
     {
         public DateTime Date { get; set; } = DateTime.Now.Date;
         public string CityName { get; set; }
-    }
-
-    class CityDto
-    {
-        public string Name { get; set; }
     }
 }

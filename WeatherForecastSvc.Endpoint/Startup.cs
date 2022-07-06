@@ -34,6 +34,7 @@ namespace WeatherForecastSvc.Endpoint
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDB"));
             services.AddScoped<IForecastStorageService, ForecastStorageService>();
+            services.AddScoped<IMetadataStorageService, MetadataStorageService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

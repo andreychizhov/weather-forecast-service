@@ -67,11 +67,13 @@ namespace WeatherForecastDataCollector
             
             var forecastSource = scope.ServiceProvider.GetRequiredService<IGismeteoForecastSource>();
 
+            var db = new WeatherDb();
+            
             var links = await forecastSource.FetchCities(token);
+            db.InsertCities(links);
 
             var root = await forecastSource.FetchWeatherDataSlice(links, token); 
             
-            var db = new WeatherDb();
             db.Insert(root);
         }
     }
