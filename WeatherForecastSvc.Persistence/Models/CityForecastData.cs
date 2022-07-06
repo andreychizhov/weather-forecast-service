@@ -6,6 +6,6 @@ namespace WeatherForecastSvc.Persistence.Models
     {
         public string CityName { get; set; }
 
-        public IReadOnlyList<WeatherForecast> Forecasts { get; set; }
+        public IReadOnlyCollection<WeatherForecast> Forecasts { get; set; }
     }
 }

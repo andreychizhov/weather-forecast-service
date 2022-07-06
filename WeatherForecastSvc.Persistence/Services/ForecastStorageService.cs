@@ -65,5 +65,10 @@ namespace WeatherForecastSvc.Persistence.Services
             
             return slice.CityForecasts;
         }
+
+        public async Task AddForecasts(WeatherPageSlice forecastData, CancellationToken token)
+        {
+            await _slices.InsertOneAsync(forecastData, cancellationToken: token);
+        }
     }
 }

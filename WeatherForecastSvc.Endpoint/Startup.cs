@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Serilog;
 using WeatherForecastSvc.Endpoint.Configuration;
+using WeatherForecastSvc.Endpoint.GprcServices;
 using WeatherForecastSvc.Persistence.Services;
 
 namespace WeatherForecastSvc.Endpoint
@@ -31,6 +32,8 @@ namespace WeatherForecastSvc.Endpoint
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddResponseCaching();
+
+            services.AddGrpc();
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDB"));
             services.AddScoped<IForecastStorageService, ForecastStorageService>();
@@ -43,22 +46,23 @@ namespace WeatherForecastSvc.Endpoint
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                
-                app.UseCors(policy => 
-                    policy.WithOrigins("https://localhost:7158", "http://localhost:5098")
-                        .AllowAnyMethod()
-                        .WithHeaders(HeaderNames.ContentType));
-                
-                app.UseSerilogRequestLogging();
             }
+            
+            app.UseCors(policy => 
+                policy.WithOrigins("https://localhost:7158", "http://localhost:5098")
+                    .AllowAnyMethod()
+                    .WithHeaders(HeaderNames.ContentType));
+                
+            app.UseSerilogRequestLogging();
 
             app.UseResponseCaching();
-            
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<WeatherForecastGrpcService>();
             });
         }
     }

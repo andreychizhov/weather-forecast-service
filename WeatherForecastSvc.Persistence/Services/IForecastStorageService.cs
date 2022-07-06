@@ -10,5 +10,6 @@ namespace WeatherForecastSvc.Persistence.Services
     {
         Task<WeatherForecast> GetForecast(string cityName, DateTime date, CancellationToken token);
         Task<IReadOnlyList<CityForecastData>> GetLatestForecasts(CancellationToken token);
+        Task AddForecasts(WeatherPageSlice forecastData, CancellationToken token);
     }
 }

@@ -8,5 +8,6 @@ namespace WeatherForecastSvc.Persistence.Services
     public interface IMetadataStorageService
     {
         Task<IReadOnlyCollection<City>> GetCities(CancellationToken token);
+        Task AddCities(IEnumerable<City> cities, CancellationToken token);
     }
 }
