@@ -34,6 +34,11 @@ namespace WeatherForecastDataCollector
                     services.Configure<ForecastSourceOptions>(configuration.GetSection("ForecastSourceOptions"));
                     services.AddHostedService<WeatherDataCollectorHostedService>();
                     services.AddScoped<IGismeteoForecastSource, GismeteoForecastSource>();
+                    services.AddScoped<IForecastEndpointGrpcClient, ForecastEndpointGrpcClient>();
+
+                    services
+                        .AddGrpcClient<WeatherForecastSvc.Endpoint.Proto.WeatherForecastSvc.WeatherForecastSvcClient>(
+                            "https://localhost:5126");
                 })
                 .Build()
                 .RunAsync();

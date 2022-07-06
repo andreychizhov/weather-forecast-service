@@ -33,4 +33,8 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\WeatherForecastSvc.Endpoint.Proto\WeatherForecastSvc.Endpoint.Proto.csproj" />
+    </ItemGroup>
+
 </Project>

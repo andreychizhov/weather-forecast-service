@@ -66,15 +66,13 @@ namespace WeatherForecastDataCollector
             using var scope = _serviceProvider.CreateScope();
             
             var forecastSource = scope.ServiceProvider.GetRequiredService<IGismeteoForecastSource>();
+            var forecastClient = scope.ServiceProvider.GetRequiredService<IForecastEndpointGrpcClient>();
 
-            var db = new WeatherDb();
-            
             var links = await forecastSource.FetchCities(token);
-            db.InsertCities(links);
+            await forecastClient.AddCities(links, token);
 
-            var root = await forecastSource.FetchWeatherDataSlice(links, token); 
-            
-            db.Insert(root);
+            var root = await forecastSource.FetchWeatherDataSlice(links, token);
+            await forecastClient.AddForecastData(root, token);
         }
     }
 }
