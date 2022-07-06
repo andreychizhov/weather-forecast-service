@@ -136,7 +136,7 @@ namespace WeatherForecastDataCollector
             foreach (var value in values)
             {
                 var summary = value.Children
-                    .FirstOrDefault(x => x.ClassName?.StartsWith("WeatherFront-icon tooltip") ?? false)?
+                    .FirstOrDefault(x => x.ClassName?.StartsWith("weather-icon tooltip") ?? false)?
                     .Attributes["data-text"].Value;
                 
                 SetFieldSafe(collector, date, wf => wf.Summary = summary);

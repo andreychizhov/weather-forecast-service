@@ -1,4 +1,5 @@
 ﻿@page "/fetchdata"
+@using System.Text.Encodings.Web
 @inject HttpClient Http
 
 <PageTitle>Weather forecast</PageTitle>
@@ -78,7 +79,7 @@ else
 
     private async Task FetchForecast()
     {
-        forecast = await Http.GetFromJsonAsync<WeatherForecast>("/forecast?cityName=%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D0%B8%D0%B1%D0%B8%D1%80%D1%81%D0%BA&date=" + request.Date);
+        forecast = await Http.GetFromJsonAsync<WeatherForecast>("/forecast?cityName=" + request.CityName + "&date=" + request.Date);
     }
 
 

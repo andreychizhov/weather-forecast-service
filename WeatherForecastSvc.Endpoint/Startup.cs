@@ -40,11 +40,7 @@ namespace WeatherForecastSvc.Endpoint
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-                    options.RoutePrefix = "";
-                });
+                app.UseSwaggerUI();
                 
                 app.UseCors(policy => 
                     policy.WithOrigins("https://localhost:7158", "http://localhost:5098")
