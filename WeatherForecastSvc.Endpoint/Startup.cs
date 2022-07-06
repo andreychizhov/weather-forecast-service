@@ -33,7 +33,11 @@ namespace WeatherForecastSvc.Endpoint
             services.AddSwaggerGen();
             services.AddResponseCaching();
 
+            AppContext.SetSwitch(
+                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             services.AddGrpc();
+            services.AddGrpcReflection();
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDB"));
             services.AddScoped<IForecastStorageService, ForecastStorageService>();
@@ -63,6 +67,7 @@ namespace WeatherForecastSvc.Endpoint
             {
                 endpoints.MapControllers();
                 endpoints.MapGrpcService<WeatherForecastGrpcService>();
+                endpoints.MapGrpcReflectionService();
             });
         }
     }

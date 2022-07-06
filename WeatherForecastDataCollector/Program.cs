@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using Grpc.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -36,9 +38,17 @@ namespace WeatherForecastDataCollector
                     services.AddScoped<IGismeteoForecastSource, GismeteoForecastSource>();
                     services.AddScoped<IForecastEndpointGrpcClient, ForecastEndpointGrpcClient>();
 
+                    AppContext.SetSwitch(
+                        "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                    
                     services
                         .AddGrpcClient<WeatherForecastSvc.Endpoint.Proto.WeatherForecastSvc.WeatherForecastSvcClient>(
-                            "https://localhost:5126");
+                            opt =>
+                            {
+                                opt.Address = new Uri("http://localhost:5126");
+                                opt.ChannelOptionsActions.Add(channelOptions =>
+                                    channelOptions.Credentials = ChannelCredentials.Insecure);
+                            });
                 })
                 .Build()
                 .RunAsync();

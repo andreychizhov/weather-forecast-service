@@ -4,7 +4,7 @@ import "google/protobuf/timestamp.proto";
 
 option csharp_namespace = "WeatherForecastSvc.Endpoint.Proto";
 
-package courier_payroll;
+package weather_forecast_service;
 
 service WeatherForecastSvc {
     rpc AddWebPageSliceV1(AddWebPageSliceRequest) returns (AddWebPageSliceResponse);

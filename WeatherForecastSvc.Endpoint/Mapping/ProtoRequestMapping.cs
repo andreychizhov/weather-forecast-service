@@ -17,9 +17,17 @@ namespace WeatherForecastSvc.Endpoint.Mapping
             };
         }
 
-        private static WeatherForecast Map(Proto.WeatherForecast proto)
+        private static WeatherForecast Map(Proto.WeatherForecast forecast)
         {
-            return new WeatherForecast();
+            return new WeatherForecast
+            {
+                Date = forecast.Date.ToDateTime(),
+                Summary = forecast.Summary,
+                MinTempC = forecast.MinTempC,
+                MaxTempC = forecast.MaxTempC,
+                WindMs = forecast.WindMs,
+                PrecipitationMm = forecast.PrecipitationMm
+            };
         }
 
         public static City Map(this Proto.City proto)

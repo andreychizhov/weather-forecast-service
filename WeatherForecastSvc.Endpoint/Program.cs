@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -45,6 +47,18 @@ namespace WeatherForecastSvc.Endpoint
                     .ReadFrom.Services(services)
                     .Enrich.FromLogContext()
                     .WriteTo.Console())
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                    
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    {
+                        webBuilder.ConfigureKestrel(options =>
+                        {
+                            options.ListenLocalhost(5026, o => o.Protocols = HttpProtocols.Http1);
+                            options.ListenLocalhost(5126, o => o.Protocols = HttpProtocols.Http2);
+                        });
+                    }
+                });
     }
 }
