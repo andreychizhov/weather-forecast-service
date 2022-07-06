@@ -5,53 +5,101 @@
 
 <h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
+@if (cities == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    <EditForm Model="@request">
+    <p>
+        <label>
+            Город:
+            <InputSelect @bind-Value="request.CityName" class="form-control mb-2 mr-sm-2">
+                <option value="">Выберите город</option>
+                @foreach (var item in cities)
+                {
+                    <option value="@item.Name">@item.Name</option>
+                }
+            </InputSelect>
+        </label>
+    </p>
+    <p>
+        <label>
+            Дата:
+            <InputDate @bind-Value="request.Date" 
+                       DisplayName="Дата" class="form-control mb-2 mr-sm-2" />
+        </label>
+    </p>
+    </EditForm>
+
+    <button class="btn btn-primary" @onclick="FetchForecast">Запросить</button>
+
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Дата</th>
+                <th>Описание</th>
+                <th>Мин. температура, C</th>
+                <th>Макс. температура, C</th>
+                <th>Скорость ветра, м/с</th>
+                <th>Осадки, мм</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
+            
+            @if (forecast != null)
+            { 
+            <tr>
+                <td>@forecast.Date.ToString("dd.MM.yyyy")</td>
+                <td>@forecast.Summary</td>
+                <td>@forecast.MinTempC</td>
+                <td>@forecast.MaxTempC</td>
+                <td>@forecast.WindMs</td>
+                <td>@forecast.PrecipitationMm</td>
+            </tr>
             }
+            
         </tbody>
     </table>
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private WeatherForecast? forecast;
+    private ForecastRequest request;
+    private CityDto[]? cities;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        request = new ForecastRequest();
+
+        cities = await Http.GetFromJsonAsync<CityDto[]>("/metadata/cities");
     }
+
+    private async Task FetchForecast()
+    {
+        forecast = await Http.GetFromJsonAsync<WeatherForecast>("/forecast?cityName=%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D0%B8%D0%B1%D0%B8%D1%80%D1%81%D0%BA&date=" + request.Date);
+    }
+
 
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
+        public string Summary { get; set; }
+        public int MinTempC { get; set; }
+        public int MaxTempC { get; set; }
+        public int WindMs { get; set; }
+        public double PrecipitationMm { get; set; }
+    }
 
-        public int TemperatureC { get; set; }
+    public class ForecastRequest
+    {
+        public DateTime Date { get; set; } = DateTime.Now.Date;
+        public string CityName { get; set; }
+    }
 
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    class CityDto
+    {
+        public string Name { get; set; }
     }
 }

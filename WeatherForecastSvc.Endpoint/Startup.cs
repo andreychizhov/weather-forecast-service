@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using Serilog;
 using WeatherForecastSvc.Endpoint.Configuration;
 using WeatherForecastSvc.Persistence.Services;
@@ -44,6 +45,12 @@ namespace WeatherForecastSvc.Endpoint
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
                     options.RoutePrefix = "";
                 });
+                
+                app.UseCors(policy => 
+                    policy.WithOrigins("https://localhost:7158", "http://localhost:5098")
+                        .AllowAnyMethod()
+                        .WithHeaders(HeaderNames.ContentType));
+                
                 app.UseSerilogRequestLogging();
             }
 
