@@ -30,6 +30,7 @@ namespace WeatherForecastSvc.Endpoint
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddResponseCaching();
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDB"));
             services.AddScoped<IForecastStorageService, ForecastStorageService>();
@@ -50,6 +51,8 @@ namespace WeatherForecastSvc.Endpoint
                 app.UseSerilogRequestLogging();
             }
 
+            app.UseResponseCaching();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

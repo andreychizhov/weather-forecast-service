@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,6 +47,23 @@ namespace WeatherForecastSvc.Persistence.Services
             var forecast = cityForecast?.Forecasts.FirstOrDefault(x => x.Date == date.Date.Date);
 
             return forecast;
+        }
+        
+        public async Task<IReadOnlyList<CityForecastData>> GetLatestForecasts(CancellationToken token)
+        {
+            var filter = new BsonDocument();
+            var options = new FindOptions
+            {
+                MaxTime = TimeSpan.FromMilliseconds(_settings.OperationTimeout)
+            };
+
+            var slice = await _slices
+                .Find(filter, options)
+                .SortByDescending(s => s.Timestamp)
+                .Limit(1)
+                .FirstAsync(token);
+            
+            return slice.CityForecasts;
         }
     }
 }
