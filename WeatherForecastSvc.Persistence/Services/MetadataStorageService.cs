@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -38,15 +39,29 @@ namespace WeatherForecastSvc.Persistence.Services
         public async Task AddCities(IEnumerable<City> cities, CancellationToken token)
         {
             var filter = new BsonDocument();
-            var existingCities = _cities.FindSync(filter).ToList();
-            var notExisting = cities.Except(existingCities, new CityComparer()).ToList();
-
-            if (!notExisting.Any())
+            var options = new FindOptions<City, City>
             {
-                return;
+                MaxTime = TimeSpan.FromMilliseconds(_settings.OperationTimeout)
+            };
+            
+            var existingCities = _cities.FindSync(filter, options).ToList();
+            var toInsert = cities.Except(existingCities, new CityComparer()).ToList();
+
+            if (toInsert.Any())
+            {
+                await _cities.InsertManyAsync(toInsert, cancellationToken: token);
             }
 
-            await _cities.InsertManyAsync(notExisting, cancellationToken: token);
+            var toDelete = existingCities.Except(cities, new CityComparer()).ToList();
+
+            if (toDelete.Any())
+            {
+                foreach (var city in toDelete)
+                {
+                    var deleteFilter = Builders<City>.Filter.Eq("Name", city.Name);
+                    await _cities.DeleteOneAsync(deleteFilter, token);
+                }
+            }
         }
         
         class CityComparer : IEqualityComparer<City>
